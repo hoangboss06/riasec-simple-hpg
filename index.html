@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<head>
+<meta charset="UTF-8">
+<title>RIASEC Career Test</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+<style>
+body{
+margin:0;
+font-family:'Poppins',sans-serif;
+background-image:
+linear-gradient(135deg,#0d47a1,#1976d2),
+url('https://www.transparenttextures.com/patterns/diamond-upholstery.png');
+}
+
+.container{
+max-width:1000px;
+margin:auto;
+padding:40px 20px;
+}
+
+.card{
+background:white;
+border-radius:20px;
+padding:30px;
+box-shadow:0 15px 40px rgba(255,193,7,0.25);
+animation:fadeIn 0.6s ease;
+}
+
+h1{text-align:center;color:#1e3c72;}
+
+.guide{
+background:#e3f2fd;
+padding:20px;
+border-radius:15px;
+margin-bottom:20px;
+border-left:6px solid #1e88e5;
+animation:fadeIn 0.8s ease;
+}
+
+.question{
+background:#f4f7fb;
+margin:10px 0;
+padding:15px;
+border-radius:12px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+transition:0.3s;
+}
+
+.question:hover{
+transform:scale(1.02);
+background:#e3f2fd;
+}
+
+input[type="checkbox"]{
+transform:scale(1.4);
+}
+
+button{
+width:100%;
+margin-top:20px;
+padding:15px;
+border:none;
+border-radius:12px;
+background:#1e88e5;
+color:white;
+font-size:16px;
+cursor:pointer;
+transition:0.3s;
+}
+
+button:hover{
+background:#1565c0;
+}
+
+.progress{
+height:10px;
+background:#ddd;
+border-radius:5px;
+margin:20px 0;
+}
+
+.progress-bar{
+height:10px;
+width:0%;
+background:#4CAF50;
+border-radius:5px;
+transition:0.3s;
+}
+
+.result{
+display:none;
+margin-top:30px;
+padding:25px;
+border-radius:15px;
+text-align:center;
+color:white;
+animation:fadeIn 1s ease;
+}
+
+.result img{
+width:100%;
+max-width:350px;
+border-radius:15px;
+margin:20px 0;
+box-shadow:0 10px 25px rgba(0,0,0,0.3);
+}
+
+@keyframes fadeIn{
+from{opacity:0;transform:translateY(20px);}
+to{opacity:1;transform:translateY(0);}
+}
+  .info-box{
+margin-bottom:20px;
+}
+
+.info-box input{
+width:100%;
+padding:12px;
+margin-bottom:10px;
+border-radius:10px;
+border:1px solid #ccc;
+font-family:'Poppins',sans-serif;
+transition:0.3s;
+}
+
+.info-box input:focus{
+background:#ffffff;
+border-color:#FFC107;
+outline:none;
+box-shadow:0 0 6px rgba(255,193,7,0.4);
+}
+    .qr-section{
+text-align:center;
+margin-top:15px;
+margin-bottom:20px;
+}
+
+.qr-img{
+width:120px;
+margin-top:10px;
+}
+
+.qr-note{
+font-size:14px;
+color:#1e3c72;
+margin-top:8px;
+font-style:italic;
+}
+  
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+<div class="card">
+  <div style="text-align:center;margin-bottom:20px;">
+   <img src="assets/LOGO HPG XÓA PHÔNG.png" style="width:120px;">
+</div>
+<h1>
+  Trắc nghiệm định hướng nghề nghiệp RIASEC<br>
+  <span class="sub-title">Hệ thống giáo dục HPG</span>
+</h1>
+
+<div class="qr-section">
+  <img src="assets/qr.png" class="qr-img">
+  <p class="qr-note">Quét mã QR để nhận kết quả</p>
+</div>
+
+<div class="guide">
+<h3>Hướng dẫn</h3>
+<p>
+Hãy đọc từng câu dưới đây. Nếu bạn đồng ý với câu đó, hãy đánh dấu chọn.
+Không có câu trả lời nào là sai. Hãy trả lời trung thực theo sở thích của bạn. Sau đó, bạn hãy nhấn "Xem kết quả" để biết được mình sẽ phù hợp với ngành nghề nào.
+</p>
+<div class="info-box">
+
+<input type="text" id="studentName" placeholder="Họ tên học sinh" required>
+<input type="text" id="class" placeholder="Lớp" required>
+<input type="text" id="school" placeholder="Trường" required>
+<input type="text" id="teacher" placeholder="Họ tên giáo viên chủ nhiệm">
+<input type="text" id="parent" placeholder="Họ tên phụ huynh">
+<input type="tel" id="phone" placeholder="Số điện thoại gửi kết quả" required>
+
+</div>
+
+<div class="progress"><div class="progress-bar" id="progressBar"></div></div>
+
+<div id="questions"></div>
+
+<button onclick="calculate()">Xem kết quả</button>
+
+<div id="result" class="result">
+   <canvas id="radarChart" style="margin-top:30px;"></canvas>
+</div>
+
+</div>
+</div>
+
+<script> const questions = [ "Tôi thích sửa chữa máy móc, thiết bị.", "Tôi thích nghiên cứu khoa học, thí nghiệm.", "Tôi thích thuyết phục và lãnh đạo người khác.", "Tôi thích giúp đỡ người khác giải quyết vấn đề.", "Tôi thích kinh doanh hoặc bán hàng.", "Tôi thích làm việc với sổ sách, giấy tờ.", "Tôi thích làm việc ngoài trời.", "Tôi thích vẽ, thiết kế hoặc sáng tạo nghệ thuật.", "Tôi thích làm việc với con số và dữ liệu.", "Tôi thích quản lý và điều hành công việc.", "Tôi thích tìm hiểu cách mọi thứ vận hành.", "Tôi thích chăm sóc và hỗ trợ người khác.", "Tôi thích tư vấn, hướng dẫn người khác.", "Tôi thích vận hành máy móc.", "Tôi thích sắp xếp và lưu trữ hồ sơ.", "Tôi thích tham gia các hoạt động kinh doanh.", "Tôi thích biểu diễn nghệ thuật.", "Tôi thích phân tích vấn đề logic.", "Tôi thích khởi nghiệp.", "Tôi thích làm việc nhóm và hỗ trợ đồng đội.", "Tôi thích làm thí nghiệm.", "Tôi thích sửa chữa điện, cơ khí.", "Tôi thích sáng tác âm nhạc hoặc viết lách.", "Tôi thích làm kế toán hoặc hành chính.", "Tôi thích làm việc theo quy trình rõ ràng.", "Tôi thích nghiên cứu công nghệ mới.", "Tôi thích thiết kế thời trang hoặc mỹ thuật.", "Tôi thích tham gia công tác xã hội.", "Tôi thích lãnh đạo dự án.", "Tôi thích làm nông nghiệp hoặc kỹ thuật.", "Tôi thích sáng tạo nội dung.", "Tôi thích lắp ráp thiết bị.", "Tôi thích làm việc văn phòng.", "Tôi thích quản lý nhân sự.", "Tôi thích làm công việc kiểm tra, giám sát.", "Tôi thích kinh doanh tự do.", "Tôi thích vận hành công cụ kỹ thuật.", "Tôi thích làm việc với hệ thống dữ liệu.", "Tôi thích nghiên cứu chuyên sâu.", "Tôi thích làm giáo viên hoặc huấn luyện viên.", "Tôi thích thiết kế đồ họa.", "Tôi thích điều hành doanh nghiệp." ];
+
+const mapping = {
+1:"R",2:"I",3:"E",4:"S",5:"E",6:"C",7:"R",8:"A",9:"C",10:"E",
+11:"I",12:"S",13:"S",14:"R",15:"C",16:"E",17:"A",18:"I",
+19:"E",20:"S",21:"I",22:"R",23:"A",24:"C",25:"C",26:"I",
+27:"A",28:"S",29:"E",30:"R",31:"A",32:"R",33:"C",34:"E",
+35:"C",36:"E",37:"R",38:"C",39:"I",40:"S",41:"A",42:"E"
+};
+
+const images={
+R:"https://images.unsplash.com/photo-1581092160607-ee22621dd758",
+I:"https://images.unsplash.com/photo-1544551763-46a013bb70d5",
+A:"https://images.unsplash.com/photo-1500530855697-b586d89ba3ee",
+S:"https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=800&auto=format&fit=crop",
+E:"https://images.unsplash.com/photo-1556761175-4b46a572b786",
+C:"https://images.unsplash.com/photo-1554224155-6726b3ff858f"
+};
+
+const descriptions = {
+R:"Nhóm Thực tế (R). Những người này thường giỏi các công việc cơ khí hoặc vận động. Ngành học gợi ý: Nông nghiệp, Máy tính, Xây dựng, Cơ khí/Thợ máy, Kỹ thuật.",
+I:"Nhóm Nghiên cứu (I). Những người này thích quan sát, học hỏi, phân tích và giải quyết vấn đề.Ngành học gợi ý: Sinh học biển, Hóa học, Y học/Phẫu thuật, Tâm lý học.",
+A:"Nhóm Nghệ thuật (A). Những người này thích làm việc trong các tình huống phi cấu trúc, nơi họ có thể sử dụng sự sáng tạo của mình.Ngành học gợi ý: Truyền thông, Nghệ thuật Mỹ thuật và Biểu diễn, Nhiếp ảnh, Thiết kế nội thất, Kiến trúc.",
+S:"Nhóm Xã hội (S). Những người này thích làm việc với con người hơn là với đồ vật.Ngành học gợi ý: Tư vấn, Điều dưỡng, Vật lý trị liệu, Giáo dục.",
+E:"Nhóm Quản lý (E). Những người này thích làm việc với người khác và thích thuyết phục hoặc biểu diễn.Ngành học gợi ý: Bất động sản, Marketing/Bán hàng, Luật, Tài chính/Ngân hàng.",
+C:"Nhóm Nghiệp vụ (C). Những người này rất chú trọng chi tiết, có tổ chức và thích làm việc với dữ liệu.Ngành học gợi ý: Kế toán, Bảo hiểm, Quản trị, Xử lý dữ liệu."
+};
+const subjectDetails = {
+  A00: "A00 (Toán - Lý - Hóa)",
+  A01: "A01 (Toán - Lý - Tiếng Anh)",
+  B00: "B00 (Toán - Hóa - Sinh)",
+  C00: "C00 (Văn - Sử - Địa)",
+  D01: "D01 (Toán - Văn - Tiếng Anh)",
+  D07: "D07 (Toán - Hóa - Tiếng Anh)",
+  D14: "D14 (Văn - Sử - Tiếng Anh)",
+  D15: "D15 (Văn - Địa - Tiếng Anh)"
+};
+const extendedData = {
+
+R:{
+subjects:["A00","A01"],
+universities:[
+{
+name:"Đại học Bách Khoa Hà Nội",
+location:"Hà Nội",
+majors:"Cơ khí, Điện – Điện tử",
+tuition:"8–15 triệu/năm (2025-2026)",
+living:"96–132 triệu/năm"
+},
+{
+name:"Đại học Giao thông Vận tải",
+location:"Hà Nội",
+majors:"Kỹ thuật xây dựng, Cầu đường",
+tuition:"8–14 triệu/năm (2025-2026)",
+living:"96–132 triệu/năm"
+},
+{
+name:"Đại học Hàng Hải Việt Nam",
+location:"Hải Phòng",
+majors:"Kỹ thuật tàu thủy, Ô tô",
+tuition:"7–12 triệu/năm (2025-2026)",
+living:"84–115 triệu/năm"
+}
+]
+},
+
+I:{
+subjects:["B00","A00","D01"],
+universities:[
+{
+name:"ĐH Khoa học Tự nhiên – ĐHQG Hà Nội",
+location:"Hà Nội",
+majors:"Toán học, Hóa học, CNTT",
+tuition:"7–13 triệu/năm (2025-2026)",
+living:"96–132 triệu/năm"
+},
+{
+name:"ĐH Y Hà Nội",
+location:"Hà Nội",
+majors:"Y đa khoa, Răng – Hàm – Mặt",
+tuition:"15–30 triệu/năm (2025-2026)",
+living:"96–132 triệu/năm"
+},
+{
+name:"ĐH Y Dược Hải Phòng",
+location:"Hải Phòng",
+majors:"Y đa khoa, Điều dưỡng",
+tuition:"15–25 triệu/năm (2025-2026)",
+living:"84–115 triệu/năm"
+}
+]
+},
+
+A:{
+subjects:["C00","D01","D14"],
+universities:[
+{
+name:"ĐH Mỹ thuật Công nghiệp",
+location:"Hà Nội",
+majors:"Thiết kế đồ họa, Nội thất",
+tuition:"8–12 triệu/năm (2025-2026)",
+living:"96–132 triệu/năm"
+},
+{
+name:"Học viện Âm nhạc Quốc gia VN",
+location:"Hà Nội",
+majors:"Thanh nhạc, Biểu diễn",
+tuition:"7–11 triệu/năm (2025-2026)",
+living:"96–132 triệu/năm"
+},
+{
+name:"ĐH Hải Phòng",
+location:"Hải Phòng",
+majors:"Thiết kế thời trang, Truyền thông",
+tuition:"6–10 triệu/năm (2025-2026)",
+living:"84–115 triệu/năm"
+}
+]
+},
+
+S:{
+subjects:["C00","D01","D15"],
+universities:[
+{
+name:"ĐH Sư phạm Hà Nội",
+location:"Hà Nội",
+majors:"Giáo dục Tiểu học, Mầm non",
+tuition:"6–11 triệu/năm (2025-2026)",
+living:"90–120 triệu/năm"
+},
+{
+name:"Học viện Báo chí & Tuyên truyền",
+location:"Hà Nội",
+majors:"Báo chí, Truyền thông",
+tuition:"9–13 triệu/năm (2025-2026)",
+living:"96–132 triệu/năm"
+},
+{
+name:"ĐH Hải Phòng",
+location:"Hải Phòng",
+majors:"Công tác xã hội, Quản lý giáo dục",
+tuition:"6–10 triệu/năm (2025-2026)",
+living:"84–115 triệu/năm"
+}
+]
+},
+
+E:{
+subjects:["A00","D01","D07"],
+universities:[
+{
+name:"ĐH Kinh tế Quốc dân",
+location:"Hà Nội",
+majors:"Marketing, QTKD",
+tuition:"10–18 triệu/năm (2025-2026)",
+living:"96–132 triệu/năm"
+},
+{
+name:"Học viện Tài chính",
+location:"Hà Nội",
+majors:"Tài chính – Ngân hàng, Kế toán",
+tuition:"9–16 triệu/năm (2025-2026)",
+living:"96–132 triệu/năm"
+},
+{
+name:"ĐH Hải Phòng",
+location:"Hải Phòng",
+majors:"Quản trị nhân lực, Du lịch",
+tuition:"6–10 triệu/năm (2025-2026)",
+living:"84–115 triệu/năm"
+}
+]
+},
+
+C:{
+subjects:["A00","B00","D01"],
+universities:[
+{
+name:"Học viện Tài chính",
+location:"Hà Nội",
+majors:"Kế toán, Tài chính",
+tuition:"9–16 triệu/năm (2025-2026)",
+living:"96–132 triệu/năm"
+},
+{
+name:"ĐH Kinh tế – ĐHQG Hà Nội",
+location:"Hà Nội",
+majors:"Kinh tế quốc tế, Ngân hàng",
+tuition:"10–18 triệu/năm (2025-2026)",
+living:"96–132 triệu/năm"
+},
+{
+name:"ĐH Hải Phòng",
+location:"Hải Phòng",
+majors:"Quản trị kinh doanh, Phân tích dữ liệu",
+tuition:"6–10 triệu/năm (2025-2026)",
+living:"84–115 triệu/năm"
+}
+]
+}
+
+};
+const container=document.getElementById("questions");
+
+questions.forEach((q,index)=>{
+container.innerHTML+=`
+<div class="question">
+${index+1}. ${q}
+<input type="checkbox" id="q${index+1}" onchange="updateProgress()">
+</div>`;
+});
+
+function updateProgress(){
+let checked=document.querySelectorAll("input:checked").length;
+document.getElementById("progressBar").style.width=(checked/42)*100+"%";
+}
+
+function calculate(){
+let scores={R:0,I:0,A:0,S:0,E:0,C:0};
+for(let i=1;i<=42;i++){
+if(document.getElementById("q"+i).checked){
+scores[mapping[i]]++;
+}
+}
+
+let maxScore = Math.max(...Object.values(scores));
+let topGroups = Object.keys(scores).filter(key => scores[key]===maxScore);
+
+let result=document.getElementById("result");
+result.style.display="block";
+result.style.background="#1e3c72";
+
+let html="";
+
+topGroups.forEach(group=>{
+
+html+=`
+<h2>Bạn thuộc nhóm ${group}</h2>
+<img src="${images[group]}">
+<p>${descriptions[group]}</p>
+<hr style="margin:25px 0;border:1px solid rgba(255,255,255,0.3);">
+`;
+});
+
+html+=`
+<p><strong>Điểm số:</strong><br>
+R:${scores.R} | I:${scores.I} | A:${scores.A} |
+S:${scores.S} | E:${scores.E} | C:${scores.C}</p>
+`;
+html+=`
+<div style="margin-top:25px;padding:20px;background:rgba(255,255,255,0.1);border-radius:12px;">
+<strong>Cảm ơn bạn đã tham gia khảo sát.</strong><br><br>
+Kết quả chi tiết sẽ được gửi về số điện thoại bạn đã đăng ký.
+</div>
+`;
+result.innerHTML = html + '<canvas id="radarChart" style="margin-top:30px;"></canvas>';
+  const ctx = document.getElementById('radarChart');
+
+new Chart(ctx, {
+    type: 'radar',
+    data: {
+        labels: ['R', 'I', 'A', 'S', 'E', 'C'],
+        datasets: [{
+            label: 'Mức độ phù hợp',
+            data: [
+                scores.R,
+                scores.I,
+                scores.A,
+                scores.S,
+                scores.E,
+                scores.C
+            ],
+            backgroundColor: 'rgba(255, 193, 7, 0.3)',
+            borderColor: '#FFC107',
+            borderWidth: 2,
+            pointBackgroundColor: '#1e3c72'
+        }]
+    },
+    options: {
+        scales: {
+            r: {
+                angleLines: { color: '#ccc' },
+                grid: { color: '#ddd' },
+                pointLabels: { color: '#fff' },
+                suggestedMin: 0,
+                suggestedMax: 10
+            }
+        },
+        plugins: {
+            legend: {
+                labels: { color: '#fff' }
+            }
+        }
+    }
+});
+
+fetch("https://script.google.com/macros/s/AKfycbw2XLcdWnLview3yiDxna2PdrKHDqaGEX9chgNvv_da5u0Y1wG5YJpxHgGJg2fESrUv/exec", {
+ method: "POST",
+  mode: "no-cors",
+  body: new URLSearchParams({
+    studentName: document.getElementById("studentName").value,
+    class: document.getElementById("class").value,
+    school: document.getElementById("school").value,
+    teacher: document.getElementById("teacher").value,
+    parent: document.getElementById("parent").value,
+    phone: document.getElementById("phone").value,
+    R: scores.R,
+    I: scores.I,
+    A: scores.A,
+    S: scores.S,
+    E: scores.E,
+    C: scores.C,
+    result: topGroups.join(" & ")
+  })
+});
+
+}  
+  
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
