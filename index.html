@@ -186,9 +186,10 @@ Không có câu trả lời nào là sai. Hãy trả lời trung thực theo s�
 <input type="text" id="studentName" placeholder="Họ tên học sinh" required>
 <input type="text" id="class" placeholder="Lớp" required>
 <input type="text" id="school" placeholder="Trường" required>
-<input type="text" id="teacher" placeholder="Họ tên giáo viên chủ nhiệm">
-<input type="text" id="parent" placeholder="Họ tên phụ huynh">
-<input type="tel" id="phone" placeholder="Số điện thoại gửi kết quả" required>
+<input type="text" id="teacher" placeholder="Họ tên giáo viên chủ nhiệm" required>
+<input type="text" id="parent" placeholder="Họ tên phụ huynh" required>
+<input type="email" id="parentEmail" placeholder="Email phụ huynh">
+<input type="tel" id="phone" placeholder="Số điện thoại của phụ huynh" required>
 
 </div>
 
@@ -501,7 +502,7 @@ new Chart(ctx, {
     }
 });
 
-fetch("https://script.google.com/macros/s/AKfycbx4eg0l2psx85Zf99860ErU81Z2l3ORV2gKkd3RbnyzaK9059dOG-7rAoiwmFGn0eA/exec", {
+fetch("https://script.google.com/macros/s/AKfycbyTl_RYkjsTeI0QpzFToyvgaX8Di2mR4u0dRwwVtCVUS1VJ1sQZyT5uzWHj-lgKL0BP/exec", {
  method: "POST",
   mode: "no-cors",
   body: new URLSearchParams({
@@ -510,6 +511,7 @@ fetch("https://script.google.com/macros/s/AKfycbx4eg0l2psx85Zf99860ErU81Z2l3ORV2
     school: document.getElementById("school").value,
     teacher: document.getElementById("teacher").value,
     parent: document.getElementById("parent").value,
+    parentEmail: document.getElementById("parentEmail").value,
     phone: document.getElementById("phone").value,
     R: scores.R,
     I: scores.I,
