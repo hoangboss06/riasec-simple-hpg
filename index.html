@@ -231,38 +231,27 @@ function calculate(){
     resultContainer.style.display="block";
     resultContainer.style.background="#1e3c72";
 
+    // PHẦN THAY ĐỔI: HIỂN THỊ ẢNH NỐI TIẾP NHAU
     let htmlContent = `
-        <div id="intro-slides">
-            <div class="intro-page" id="page-1" style="display: block; text-align: center;">
-                <img src="assets/intro 6.png" style="width: 100vw; max-width: 100%; height: auto; display: block; border-radius: 0;">
-                <div style="padding: 20px;"><button onclick="nextPage(2)">TIẾP THEO</button></div>
-            </div>
-
-            <div class="intro-page" id="page-2" style="display: none; text-align: center;">
-                <img src="assets/intro 7.png" style="width: 100vw; max-width: 100%; height: auto; display: block; border-radius: 0;">
-                <div style="padding: 20px;"><button onclick="nextPage(3)">TIẾP THEO</button></div>
-            </div>
-
-            <div class="intro-page" id="page-3" style="display: none; text-align: center;">
-                <img src="assets/intro 8.png" style="width: 100vw; max-width: 100%; height: auto; display: block; border-radius: 0;">
-                <div style="padding: 20px;"><button onclick="showFinalResults()" style="background: #FFC107; color: #1e3c72;">XEM KẾT QUẢ NGHỀ NGHIỆP</button></div>
-            </div>
-            <div class="intro-page" id="page-4" style="display: none; text-align: center;">
-                <img src="assets/intro 9.png" style="width: 100vw; max-width: 100%; height: auto; display: block; border-radius: 0;">
-                <div style="padding: 20px;"><button onclick="showFinalResults()" style="background: #FFC107; color: #1e3c72;">XEM KẾT QUẢ NGHỀ NGHIỆP</button></div>
-            </div>
-            <div class="intro-page" id="page-5" style="display: none; text-align: center;">
-                <img src="assets/intro 10.png" style="width: 100vw; max-width: 100%; height: auto; display: block; border-radius: 0;">
-                <div style="padding: 20px;"><button onclick="showFinalResults()" style="background: #FFC107; color: #1e3c72;">XEM KẾT QUẢ NGHỀ NGHIỆP</button></div>
-            </div>
-            <div class="intro-page" id="page-6" style="display: none; text-align: center;">
-                <img src="assets/intro 11.png" style="width: 100vw; max-width: 100%; height: auto; display: block; border-radius: 0;">
-                <div style="padding: 20px;"><button onclick="showFinalResults()" style="background: #FFC107; color: #1e3c72;">XEM KẾT QUẢ NGHỀ NGHIỆP</button></div>
+        <div id="intro-slides" style="padding: 0; margin: 0;">
+            <img src="assets/intro 6.png" style="width: 100%; display: block;">
+            <img src="assets/intro 7.png" style="width: 100%; display: block;">
+            <img src="assets/intro 8.png" style="width: 100%; display: block;">
+            <img src="assets/intro 9.png" style="width: 100%; display: block;">
+            <img src="assets/intro 10.png" style="width: 100%; display: block;">
+            <img src="assets/intro 11.png" style="width: 100%; display: block;">
+            
+            <div style="padding: 30px; text-align: center; background: #1e3c72;">
+                <button onclick="showFinalResults()" style="background: #FFC107; color: #1e3c72; border-radius: 50px; padding: 20px; font-size: 18px;">
+                    XEM KẾT QUẢ NGHỀ NGHIỆP CỦA BẠN
+                </button>
             </div>
         </div>
 
         <div id="final-details" style="display: none; padding: 20px;">
     `;
+
+    // (Giữ nguyên phần render topGroups và radar chart bên dưới...)
 
     topGroups.forEach(group=>{
         htmlContent += `
