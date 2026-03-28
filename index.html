@@ -193,7 +193,15 @@ const extendedData = {
     E: { subjects: ["A00 (Toán - Lý - Hóa)", "D01 (Toán - Văn - Anh)"], universities: [{ name: "Đại học Kinh tế Quốc dân (Hà Nội)", majors: "QTKD, Marketing, Tài chính", tuition: "10–18 triệu/năm (2025-2026)", living: "96–132 triệu/năm" }, { name: "Đại học Hải Phòng (Hải Phòng)", majors: "Quản trị kinh doanh, Kế toán", tuition: "6–10 triệu/năm (2025-2026)", living: "84–115 triệu/năm" }] },
     C: { subjects: ["A00 (Toán - Lý - Hóa)", "D01 (Toán - Văn - Anh)"], universities: [{ name: "Học viện Tài chính (Hà Nội)", majors: "Kế toán, Kiểm toán", tuition: "9–16 triệu/năm (2025-2026)", living: "96–132 triệu/năm" }, { name: "Đại học Hải Phòng (Hải Phòng)", majors: "Quản lý dữ liệu, Thống kê", tuition: "6–10 triệu/năm (2025-2026)", living: "84–115 triệu/năm" }] }
 };
-
+// --- 1.2 DỮ LIỆU HÌNH ẢNH ---
+const images = { 
+    R: "https://images.unsplash.com/photo-1581092160607-ee22621dd758", 
+    I: "https://images.unsplash.com/photo-1544551763-46a013bb70d5", 
+    A: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee", 
+    S: "https://images.unsplash.com/photo-1551836022-d5d88e9218df", 
+    E: "https://images.unsplash.com/photo-1556761175-4b46a572b786", 
+    C: "https://images.unsplash.com/photo-1554224155-6726b3ff858f" 
+};
 // --- 2. KHỞI TẠO CÂU HỎI ---
 const qContainer = document.getElementById("questions");
 questions.forEach((q,i) => { 
@@ -249,6 +257,7 @@ function calculate() {
     topG.forEach(g => {
         let ex = extendedData[g];
         html += `<h2 style="color:#FFC107; text-align:center;">Bạn thuộc nhóm ${g}</h2>
+        <img src="${images[g]}" style="width:100%; max-width:600px; display:block; margin: 15px auto; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.3);">
                  <p style="text-align:center; font-size: 1.1em;">${descriptions[g]}</p>
                  <h3 style="color:#FFC107; text-align:center; margin-top:20px;">📚 Tổ hợp môn nên chú ý:</h3>
                  <ul style="text-align: center; list-style: none; padding: 0; font-weight: bold;">
