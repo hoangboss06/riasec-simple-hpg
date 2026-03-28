@@ -233,6 +233,63 @@ const extendedData = {
     }
 };
 
+// 2. HÀM TÍNH TOÁN & HIỂN THỊ (Đã bỏ khung xanh, sửa lỗi undefined)
+function calculate() {
+    let scores = {R:0, I:0, A:0, S:0, E:0, C:0};
+    for(let i=1; i<=42; i++) { if(document.getElementById("q"+i).checked) scores[mapping[i]]++; }
+    let maxS = Math.max(...Object.values(scores));
+    let topG = Object.keys(scores).filter(k => scores[k] === maxS);
+    
+    let html = `<div id="intro-slides" style="line-height:0;">`;
+    [6,7,8,9,10,11].forEach(n => { html += `<img src="assets/intro ${n}.png" style="width:100%; display:block;">`; });
+    html += `<div style="padding:30px;"><button onclick="showFinalResults()" style="background:#FFC107; color:#1e3c72; border-radius:50px;">XEM KẾT QUẢ NGHỀ NGHIỆP CỦA BẠN</button></div></div><div id="final-details" style="display:none; padding:20px; text-align:left; color: white;">`;
+
+    topG.forEach(g => {
+        let ex = extendedData[g];
+        html += `<h2 style="color:#FFC107; text-align:center;">Bạn thuộc nhóm ${g}</h2>
+                 <p style="text-align:center; font-size: 1.1em;">${descriptions[g]}</p>
+                 <h3 style="color:#FFC107; text-align:center; margin-top:20px;">📚 Tổ hợp môn nên chú ý:</h3>
+                 <ul style="text-align: center; list-style: none; padding: 0; font-weight: bold;">
+                    ${ex.subjects.map(s => `<li>${s}</li>`).join("")}
+                 </ul>
+                 <h3 style="color:#FFC107; text-align:center; margin-top:20px;">🏫 Trường đại học gợi ý (Việt Nam):</h3>`;
+        
+        ex.universities.forEach(u => { 
+            html += `<div style="margin-bottom: 25px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px;">
+                        <strong style="font-size: 1.2em;">${u.name}</strong><br>
+                        Ngành nổi bật: ${u.majors}<br>
+                        Học phí: ${u.tuition}<br>
+                        Chi phí sinh hoạt: ${u.living}
+                     </div>`; 
+        });
+        html += `<hr style="border:0.5px solid rgba(255,255,255,0.2); margin: 40px 0;">`;
+    });
+
+    html += `<canvas id="radarChart" style="margin-top:20px;"></canvas></div>`;
+    document.getElementById("result").innerHTML = html;
+    document.getElementById("result").style.display = "block";
+
+    const ctx = document.getElementById('radarChart').getContext('2d');
+    new Chart(ctx, { 
+        type:'radar', 
+        data:{ 
+            labels:['R','I','A','S','E','C'], 
+            datasets:[{ 
+                label:'Mức độ', 
+                data:[scores.R, scores.I, scores.A, scores.S, scores.E, scores.C], 
+                backgroundColor:'rgba(255,193,7,0.4)', 
+                borderColor:'#FFC107', 
+                borderWidth:3 
+            }] 
+        }, 
+        options:{ 
+            scales:{ 
+                r:{ suggestedMin:0, suggestedMax:7, pointLabels:{color:'#fff'} } 
+            }, 
+            plugins:{ legend:{labels:{color:'#fff'}} } 
+        } 
+    });
+
 const qContainer = document.getElementById("questions");
 questions.forEach((q,i) => { qContainer.innerHTML += `<div class="question"><span>${i+1}. ${q}</span><input type="checkbox" id="q${i+1}" onchange="updateProgress()"></div>`; });
 
