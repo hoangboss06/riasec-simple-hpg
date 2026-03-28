@@ -104,19 +104,19 @@
             box-sizing: border-box;
         }
 
-      /* Ảnh tự động lấp đầy khung chứa và căn giữa */
+     /* Ảnh lấp đầy bề rộng khung trắng */
 .full-width-img {
-    width: 100%;
-    max-width: 100%;
+    width: 100% !important;
     height: auto;
     display: block;
-    margin: 0 auto; /* Căn giữa tuyệt đối */
-    border-radius: 10px; /* Bo góc nhẹ để đồng bộ với giao diện */
+    margin: 0 auto;
+    border-radius: 10px 10px 0 0; /* Chỉ bo góc trên cho chuyên nghiệp */
 }
 
-/* Loại bỏ khoảng trống thừa của card ở trang 2 */
+/* Xóa padding của card ở trang 2 để ảnh sát mép */
 #step2.card {
-    padding: 15px; 
+    padding: 0 !important; /* Quan trọng: Xóa trắng khoảng cách lề */
+    overflow: hidden;
 }
 
         @keyframes fadeIn {
@@ -158,10 +158,9 @@
     </div>
 
  <div class="card" id="step2" style="display:none; text-align:center;">
-    <div style="width: 100%; overflow: hidden; margin-bottom: 15px;">
-        <img src="assets/infor 1.png" class="full-width-img">
-    </div>
-    <div style="padding: 0 10px;">
+    <img src="assets/infor 1.png" class="full-width-img">
+    
+    <div style="padding: 20px;">
         <button onclick="goToStep3()">GIẢI PHÁP HƯỚNG NGHIỆP CHO HỌC SINH THCS</button>
     </div>
 </div>
