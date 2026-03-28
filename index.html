@@ -213,13 +213,25 @@ function calculate(){
 
     // 1. Chèn 5 ảnh intro (Sửa lỗi dấu nháy ở đây)
   let htmlContent = `
-    <div style="text-align: center; margin-bottom: 30px; padding: 0;">
-        <img src="assets/intro 1.png" style="width: 100vw; max-width: 100%; height: auto; display: block; margin: 0 auto 10px auto; border-radius: 0;">
-        <img src="assets/intro 2.png" style="width: 100vw; max-width: 100%; height: auto; display: block; margin: 0 auto 10px auto; border-radius: 0;">
-        <img src="assets/intro 3.png" style="width: 100vw; max-width: 100%; height: auto; display: block; margin: 0 auto 10px auto; border-radius: 0;">
-    </div>
-    <hr style="margin: 30px 0; border: 1px solid rgba(255,255,255,0.3);">
-`;
+        <div id="intro-slides">
+            <div class="intro-page" id="page-1" style="display: block; text-align: center;">
+                <img src="assets/intro 1.png" style="width: 100vw; max-width: 100%; height: auto; display: block; border-radius: 0;">
+                <button onclick="nextPage(2)" style="width: 80%; margin: 20px auto;">TIẾP THEO</button>
+            </div>
+
+            <div class="intro-page" id="page-2" style="display: none; text-align: center;">
+                <img src="assets/intro 2.png" style="width: 100vw; max-width: 100%; height: auto; display: block; border-radius: 0;">
+                <button onclick="nextPage(3)" style="width: 80%; margin: 20px auto;">TIẾP THEO</button>
+            </div>
+
+            <div class="intro-page" id="page-3" style="display: none; text-align: center;">
+                <img src="assets/intro 3.png" style="width: 100vw; max-width: 100%; height: auto; display: block; border-radius: 0;">
+                <button onclick="showFinalResults()" style="width: 80%; margin: 20px auto; background: #FFC107; color: #1e3c72;">XEM KẾT QUẢ NGHỀ NGHIỆP</button>
+            </div>
+        </div>
+
+        <div id="final-details" style="display: none;">
+    `;
 
     // 2. Chèn kết quả nhóm nghề
     topGroups.forEach(group=>{
@@ -238,7 +250,7 @@ function calculate(){
         R:${scores.R} | I:${scores.I} | A:${scores.A} | S:${scores.S} | E:${scores.E} | C:${scores.C}</p>
         <div style="margin:25px; padding:20px; background:rgba(255,255,255,0.1); border-radius:12px;">
             <strong>Cảm ơn bạn đã tham gia khảo sát.</strong><br><br>
-            Kết quả đã được ghi nhận vào hệ thống của HPG.
+            Kết quả chi tiết đã được ghi nhận vào hệ thống của HPG và sẽ được gửi về Số điện thoại/zalo đã nhập ở trên.
         </div>
         <canvas id="radarChart" style="margin-top:30px; background: rgba(255,255,255,0.05); border-radius:15px; padding:10px;"></canvas>
     `;
@@ -293,7 +305,11 @@ function calculate(){
 }
 
 function goToStep2(){
-    if(!document.getElementById("studentName").value) { alert("Vui lòng điền họ tên"); return; }
+    // Kiểm tra nhanh xem đã điền tên chưa
+    if(!document.getElementById("studentName").value) { 
+        alert("Vui lòng điền họ tên để tiếp tục"); 
+        return; 
+    }
     document.getElementById("step1").style.display="none";
     document.getElementById("step2").style.display="block";
     window.scrollTo(0,0);
@@ -307,8 +323,29 @@ function goToStep3(){
 
 function showIntroBeforeResult(){
     document.getElementById("step3").style.display="none";
-    calculate();
+    calculate(); // Hàm này sẽ chạy và tạo ra các slide ảnh intro
     window.scrollTo(0,0);
+}
+
+// Hàm chuyển giữa các trang ảnh intro (Phần bạn mới yêu cầu)
+function nextPage(pageNum) {
+    // Ẩn tất cả các trang intro
+    document.querySelectorAll('.intro-page').forEach(page => {
+        page.style.display = 'none';
+    });
+    // Hiện trang tiếp theo
+    const nextPg = document.getElementById('page-' + pageNum);
+    if(nextPg) {
+        nextPg.style.display = 'block';
+    }
+    window.scrollTo(0, 0);
+}
+
+// Hàm hiển thị kết quả cuối cùng sau khi xem hết 3 ảnh
+function showFinalResults() {
+    document.getElementById('intro-slides').style.display = 'none';
+    document.getElementById('final-details').style.display = 'block';
+    window.scrollTo(0, 0);
 }
 </script>
 </body>
