@@ -180,60 +180,62 @@
 </div>
 
 <script>
-// --- DỮ LIỆU CÂU HỎI & MAPPING ---
+// --- 1. DỮ LIỆU CÂU HỎI & MAPPING ---
 const questions = [ "Tôi thích sửa chữa máy móc, thiết bị.", "Tôi thích nghiên cứu khoa học, thí nghiệm.", "Tôi thích thuyết phục và lãnh đạo người khác.", "Tôi thích giúp đỡ người khác giải quyết vấn đề.", "Tôi thích kinh doanh hoặc bán hàng.", "Tôi thích làm việc với sổ sách, giấy tờ.", "Tôi thích làm việc ngoài trời.", "Tôi thích vẽ, thiết kế hoặc sáng tạo nghệ thuật.", "Tôi thích làm việc với con số và dữ liệu.", "Tôi thích quản lý và điều hành công việc.", "Tôi thích tìm hiểu cách mọi thứ vận hành.", "Tôi thích chăm sóc và hỗ trợ người khác.", "Tôi thích tư vấn, hướng dẫn người khác.", "Tôi thích vận hành máy móc.", "Tôi thích sắp xếp và lưu trữ hồ sơ.", "Tôi thích tham gia các hoạt động kinh doanh.", "Tôi thích biểu diễn nghệ thuật.", "Tôi thích phân tích vấn đề logic.", "Tôi thích khởi nghiệp.", "Tôi thích làm việc nhóm và hỗ trợ đồng đội.", "Tôi thích làm thí nghiệm.", "Tôi thích sửa chữa điện, cơ khí.", "Tôi thích sáng tác âm nhạc hoặc viết lách.", "Tôi thích làm kế toán hoặc hành chính.", "Tôi thích làm việc theo quy trình rõ ràng.", "Tôi thích nghiên cứu công nghệ mới.", "Tôi thích thiết kế thời trang hoặc mỹ thuật.", "Tôi thích tham gia công tác xã hội.", "Tôi thích lãnh đạo dự án.", "Tôi thích làm nông nghiệp hoặc kỹ thuật.", "Tôi thích sáng tạo nội dung.", "Tôi thích lắp ráp thiết bị.", "Tôi thích làm việc văn phòng.", "Tôi thích quản lý nhân sự.", "Tôi thích làm công việc kiểm tra, giám sát.", "Tôi thích kinh doanh tự do.", "Tôi thích vận hành công cụ kỹ thuật.", "Tôi thích làm việc với hệ thống dữ liệu.", "Tôi thích nghiên cứu chuyên sâu.", "Tôi thích làm giáo viên hoặc huấn luyện viên.", "Tôi thích thiết kế đồ họa.", "Tôi thích điều hành doanh nghiệp." ];
 const mapping = { 1:"R",2:"I",3:"E",4:"S",5:"E",6:"C",7:"R",8:"A",9:"C",10:"E",11:"I",12:"S",13:"S",14:"R",15:"C",16:"E",17:"A",18:"I",19:"E",20:"S",21:"I",22:"R",23:"A",24:"C",25:"C",26:"I",27:"A",28:"S",29:"E",30:"R",31:"A",32:"R",33:"C",34:"E",35:"C",36:"E",37:"R",38:"C",39:"I",40:"S",41:"A",42:"E" };
-const images = { R:"https://images.unsplash.com/photo-1581092160607-ee22621dd758", I:"https://images.unsplash.com/photo-1544551763-46a013bb70d5", A:"https://images.unsplash.com/photo-1500530855697-b586d89ba3ee", S:"https://images.unsplash.com/photo-1551836022-d5d88e9218df", E:"https://images.unsplash.com/photo-1556761175-4b46a572b786", C:"https://images.unsplash.com/photo-1554224155-6726b3ff858f" };
 const descriptions = { R:"Nhóm Thực tế (R). Thường giỏi các công việc cơ khí hoặc vận động.", I:"Nhóm Nghiên cứu (I). Thích quan sát, phân tích và giải quyết vấn đề.", A:"Nhóm Nghệ thuật (A). Thích sự sáng tạo, làm việc phi cấu trúc.", S:"Nhóm Xã hội (S). Thích làm việc với con người.", E:"Nhóm Quản lý (E). Thích thuyết phục hoặc quản lý người khác.", C:"Nhóm Nghiệp vụ (C). Chú trọng chi tiết, có tổ chức." };
 
-const subjectDetails = { A00: "A00 (Toán - Lý - Hóa)", A01: "A01 (Toán - Lý - Tiếng Anh)", B00: "B00 (Toán - Hóa - Sinh)", C00: "C00 (Văn - Sử - Địa)", D01: "D01 (Toán - Văn - Tiếng Anh)", D07: "D07 (Toán - Hóa - Tiếng Anh)", D14: "D14 (Văn - Sử - Tiếng Anh)", D15: "D15 (Văn - Địa - Tiếng Anh)" };
 const extendedData = {
-    R: { 
-        subjects: ["A00 (Toán - Lý - Hóa)", "A01 (Toán - Lý - Anh)"], 
-        universities: [
-            { name: "Đại học Bách Khoa Hà Nội (Hà Nội)", majors: "Cơ khí, Điện - Điện tử", tuition: "8–15 triệu/năm (2025-2026)", living: "96–132 triệu/năm" },
-            { name: "Đại học Giao thông Vận tải (Hà Nội)", majors: "Kỹ thuật xây dựng, Cầu đường", tuition: "8–14 triệu/năm (2025-2026)", living: "96–132 triệu/năm" },
-            { name: "Đại học Hàng Hải Việt Nam (Hải Phòng)", majors: "Kỹ thuật tàu thủy, Ô tô", tuition: "7–12 triệu/năm (2025-2026)", living: "84–115 triệu/năm" }
-        ] 
-    },
-    I: { 
-        subjects: ["B00 (Toán - Hóa - Sinh)", "A00 (Toán - Lý - Hóa)"], 
-        universities: [
-            { name: "Đại học Y Hà Nội (Hà Nội)", majors: "Y đa khoa, Răng Hàm Mặt", tuition: "15–30 triệu/năm (2025-2026)", living: "96–132 triệu/năm" },
-            { name: "Đại học Y Dược Hải Phòng (Hải Phòng)", majors: "Y đa khoa, Dược học", tuition: "15–25 triệu/năm (2025-2026)", living: "84–115 triệu/năm" }
-        ] 
-    },
-    A: { 
-        subjects: ["C00 (Văn - Sử - Địa)", "D01 (Toán - Văn - Anh)"], 
-        universities: [
-            { name: "Đại học Mỹ thuật Công nghiệp (Hà Nội)", majors: "Thiết kế đồ họa, Nội thất", tuition: "8–12 triệu/năm (2025-2026)", living: "96–132 triệu/năm" },
-            { name: "Đại học Hải Phòng (Hải Phòng)", majors: "Ngôn ngữ Anh, Văn hóa du lịch", tuition: "6–10 triệu/năm (2025-2026)", living: "84–115 triệu/năm" }
-        ] 
-    },
-    S: { 
-        subjects: ["C00 (Văn - Sử - Địa)", "D01 (Toán - Văn - Anh)"], 
-        universities: [
-            { name: "Đại học Sư phạm Hà Nội (Hà Nội)", majors: "Giáo dục tiểu học, Tâm lý học", tuition: "6–11 triệu/năm (2025-2026)", living: "96–132 triệu/năm" },
-            { name: "Đại học Hải Phòng (Hải Phòng)", majors: "Sư phạm Toán, Văn, Anh", tuition: "6–10 triệu/năm (2025-2026)", living: "84–115 triệu/năm" }
-        ] 
-    },
-    E: { 
-        subjects: ["A00 (Toán - Lý - Hóa)", "D01 (Toán - Văn - Anh)"], 
-        universities: [
-            { name: "Đại học Kinh tế Quốc dân (Hà Nội)", majors: "QTKD, Marketing, Tài chính", tuition: "10–18 triệu/năm (2025-2026)", living: "96–132 triệu/năm" },
-            { name: "Đại học Hải Phòng (Hải Phòng)", majors: "Quản trị kinh doanh, Kế toán", tuition: "6–10 triệu/năm (2025-2026)", living: "84–115 triệu/năm" }
-        ] 
-    },
-    C: { 
-        subjects: ["A00 (Toán - Lý - Hóa)", "D01 (Toán - Văn - Anh)"], 
-        universities: [
-            { name: "Học viện Tài chính (Hà Nội)", majors: "Kế toán, Kiểm toán", tuition: "9–16 triệu/năm (2025-2026)", living: "96–132 triệu/năm" },
-            { name: "Đại học Hải Phòng (Hải Phòng)", majors: "Quản lý dữ liệu, Thống kê", tuition: "6–10 triệu/năm (2025-2026)", living: "84–115 triệu/năm" }
-        ] 
-    }
+    R: { subjects: ["A00 (Toán - Lý - Hóa)", "A01 (Toán - Lý - Anh)"], universities: [{ name: "Đại học Bách Khoa Hà Nội (Hà Nội)", majors: "Cơ khí, Điện - Điện tử", tuition: "8–15 triệu/năm (2025-2026)", living: "96–132 triệu/năm" }, { name: "Đại học Giao thông Vận tải (Hà Nội)", majors: "Kỹ thuật xây dựng, Cầu đường", tuition: "8–14 triệu/năm (2025-2026)", living: "96–132 triệu/năm" }, { name: "Đại học Hàng Hải Việt Nam (Hải Phòng)", majors: "Kỹ thuật tàu thủy, Ô tô", tuition: "7–12 triệu/năm (2025-2026)", living: "84–115 triệu/năm" }] },
+    I: { subjects: ["B00 (Toán - Hóa - Sinh)", "A00 (Toán - Lý - Hóa)"], universities: [{ name: "Đại học Y Hà Nội (Hà Nội)", majors: "Y đa khoa, Răng Hàm Mặt", tuition: "15–30 triệu/năm (2025-2026)", living: "96–132 triệu/năm" }, { name: "Đại học Y Dược Hải Phòng (Hải Phòng)", majors: "Y đa khoa, Dược học", tuition: "15–25 triệu/năm (2025-2026)", living: "84–115 triệu/năm" }] },
+    A: { subjects: ["C00 (Văn - Sử - Địa)", "D01 (Toán - Văn - Anh)"], universities: [{ name: "Đại học Mỹ thuật Công nghiệp (Hà Nội)", majors: "Thiết kế đồ họa, Nội thất", tuition: "8–12 triệu/năm (2025-2026)", living: "96–132 triệu/năm" }, { name: "Đại học Hải Phòng (Hải Phòng)", majors: "Ngôn ngữ Anh, Văn hóa du lịch", tuition: "6–10 triệu/năm (2025-2026)", living: "84–115 triệu/năm" }] },
+    S: { subjects: ["C00 (Văn - Sử - Địa)", "D01 (Toán - Văn - Anh)"], universities: [{ name: "Đại học Sư phạm Hà Nội (Hà Nội)", majors: "Giáo dục tiểu học, Tâm lý học", tuition: "6–11 triệu/năm (2025-2026)", living: "96–132 triệu/năm" }, { name: "Đại học Hải Phòng (Hải Phòng)", majors: "Sư phạm Toán, Văn, Anh", tuition: "6–10 triệu/năm (2025-2026)", living: "84–115 triệu/năm" }] },
+    E: { subjects: ["A00 (Toán - Lý - Hóa)", "D01 (Toán - Văn - Anh)"], universities: [{ name: "Đại học Kinh tế Quốc dân (Hà Nội)", majors: "QTKD, Marketing, Tài chính", tuition: "10–18 triệu/năm (2025-2026)", living: "96–132 triệu/năm" }, { name: "Đại học Hải Phòng (Hải Phòng)", majors: "Quản trị kinh doanh, Kế toán", tuition: "6–10 triệu/năm (2025-2026)", living: "84–115 triệu/năm" }] },
+    C: { subjects: ["A00 (Toán - Lý - Hóa)", "D01 (Toán - Văn - Anh)"], universities: [{ name: "Học viện Tài chính (Hà Nội)", majors: "Kế toán, Kiểm toán", tuition: "9–16 triệu/năm (2025-2026)", living: "96–132 triệu/năm" }, { name: "Đại học Hải Phòng (Hải Phòng)", majors: "Quản lý dữ liệu, Thống kê", tuition: "6–10 triệu/năm (2025-2026)", living: "84–115 triệu/năm" }] }
 };
 
-// 2. HÀM TÍNH TOÁN & HIỂN THỊ (Đã bỏ khung xanh, sửa lỗi undefined)
+// --- 2. KHỞI TẠO CÂU HỎI ---
+const qContainer = document.getElementById("questions");
+questions.forEach((q,i) => { 
+    qContainer.innerHTML += `<div class="question"><span>${i+1}. ${q}</span><input type="checkbox" id="q${i+1}" onchange="updateProgress()"></div>`; 
+});
+
+function updateProgress() { 
+    let checked = document.querySelectorAll("input:checked").length; 
+    document.getElementById("progressBar").style.width = (checked/42)*100+"%"; 
+}
+
+// --- 3. ĐIỀU HƯỚNG ---
+function goToStep2() { 
+    const fields = ["studentName", "class", "school", "teacher", "parent", "phone"];
+    for (let f of fields) { 
+        let val = document.getElementById(f).value.trim();
+        if(!val) { alert("Vui lòng điền đủ thông tin: " + document.getElementById(f).placeholder); return; } 
+    }
+    document.getElementById("step1").style.display="none"; 
+    document.getElementById("step2").style.display="block"; 
+    window.scrollTo(0,0);
+}
+
+function goToStep3() { 
+    document.getElementById("step2").style.display="none"; 
+    document.getElementById("step3").style.display="block"; 
+    window.scrollTo(0,0); 
+}
+
+function showIntroBeforeResult() { 
+    document.getElementById("step3").style.display="none"; 
+    calculate(); 
+    window.scrollTo(0,0); 
+}
+
+function showFinalResults() { 
+    document.getElementById('intro-slides').style.display='none'; 
+    document.getElementById('final-details').style.display='block'; 
+    window.scrollTo(0,0); 
+}
+
+// --- 4. TÍNH TOÁN KẾT QUẢ ---
 function calculate() {
     let scores = {R:0, I:0, A:0, S:0, E:0, C:0};
     for(let i=1; i<=42; i++) { if(document.getElementById("q"+i).checked) scores[mapping[i]]++; }
@@ -242,7 +244,7 @@ function calculate() {
     
     let html = `<div id="intro-slides" style="line-height:0;">`;
     [6,7,8,9,10,11].forEach(n => { html += `<img src="assets/intro ${n}.png" style="width:100%; display:block;">`; });
-    html += `<div style="padding:30px;"><button onclick="showFinalResults()" style="background:#FFC107; color:#1e3c72; border-radius:50px;">XEM KẾT QUẢ NGHỀ NGHIỆP CỦA BẠN</button></div></div><div id="final-details" style="display:none; padding:20px; text-align:left; color: white;">`;
+    html += `<div style="padding:30px; background:#1e3c72;"><button onclick="showFinalResults()" style="background:#FFC107; color:#1e3c72; border-radius:50px;">XEM KẾT QUẢ NGHỀ NGHIỆP CỦA BẠN</button></div></div><div id="final-details" style="display:none; padding:20px; text-align:left; color: white;">`;
 
     topG.forEach(g => {
         let ex = extendedData[g];
@@ -269,6 +271,7 @@ function calculate() {
     document.getElementById("result").innerHTML = html;
     document.getElementById("result").style.display = "block";
 
+    // Vẽ biểu đồ
     const ctx = document.getElementById('radarChart').getContext('2d');
     new Chart(ctx, { 
         type:'radar', 
@@ -283,61 +286,21 @@ function calculate() {
             }] 
         }, 
         options:{ 
-            scales:{ 
-                r:{ suggestedMin:0, suggestedMax:7, pointLabels:{color:'#fff'} } 
-            }, 
+            scales:{ r:{ suggestedMin:0, suggestedMax:7, pointLabels:{color:'#fff'} } }, 
             plugins:{ legend:{labels:{color:'#fff'}} } 
         } 
     });
-
-const qContainer = document.getElementById("questions");
-questions.forEach((q,i) => { qContainer.innerHTML += `<div class="question"><span>${i+1}. ${q}</span><input type="checkbox" id="q${i+1}" onchange="updateProgress()"></div>`; });
-
-function updateProgress() { let checked = document.querySelectorAll("input:checked").length; document.getElementById("progressBar").style.width = (checked/42)*100+"%"; }
-
-function goToStep2() { 
-    const fields = ["studentName", "class", "school", "teacher", "parent", "phone"];
-    for (let f of fields) { 
-        let val = document.getElementById(f).value.trim();
-        if(!val) { alert("Vui lòng điền đủ thông tin: " + document.getElementById(f).placeholder); return; } 
-    }
-    document.getElementById("step1").style.display="none"; 
-    document.getElementById("step2").style.display="block"; 
-    window.scrollTo(0,0);
-}
-
-function goToStep3() { document.getElementById("step2").style.display="none"; document.getElementById("step3").style.display="block"; window.scrollTo(0,0); }
-
-function showIntroBeforeResult() { document.getElementById("step3").style.display="none"; calculate(); window.scrollTo(0,0); }
-
-function calculate() {
-    let scores = {R:0, I:0, A:0, S:0, E:0, C:0};
-    for(let i=1; i<=42; i++) { if(document.getElementById("q"+i).checked) scores[mapping[i]]++; }
-    let maxS = Math.max(...Object.values(scores));
-    let topG = Object.keys(scores).filter(k => scores[k] === maxS);
     
-    let html = `<div id="intro-slides" style="line-height:0;">`;
-    [6,7,8,9,10,11].forEach(n => { html += `<img src="assets/intro ${n}.png" style="width:100%; display:block;">`; });
-    html += `<div style="padding:30px;"><button onclick="showFinalResults()" style="background:#FFC107; color:#1e3c72; border-radius:50px;">XEM KẾT QUẢ NGHỀ NGHIỆP CỦA BẠN</button></div></div><div id="final-details" style="display:none; padding:20px; text-align:left;">`;
-
-    topG.forEach(g => {
-        let ex = extendedData[g];
-        html += `<h2 style="color:#FFC107; text-align:center;">Bạn thuộc nhóm ${g}</h2><img src="${images[g]}" style="width:100%; border-radius:15px;"><p>${descriptions[g]}</p><h3 style="color:#FFC107;">📚 Tổ hợp môn:</h3><ul style="color:white;">${ex.subjects.map(s=>`<li>${subjectDetails[s]}</li>`).join("")}</ul><h3 style="color:#FFC107;">🏫 Gợi ý trường:</h3>`;
-        ex.universities.forEach(u => { html += `<div style="background:rgba(255,255,255,0.1); padding:10px; border-radius:10px; margin-bottom:10px;"><strong>${u.name}</strong><br>Ngành: ${u.majors}<br>Học phí: ${u.tuition}</div>`; });
-        html += `<hr style="border:0.5px solid rgba(255,255,255,0.2);">`;
+    // Gửi dữ liệu về Google Sheets
+    fetch("https://script.google.com/macros/s/AKfycbyTl_RYkjsTeI0QpzFToyvgaX8Di2mR4u0dRwwVtCVUS1VJ1sQZyT5uzWHj-lgKL0BP/exec", { 
+        method: "POST", 
+        mode: "no-cors", 
+        body: new URLSearchParams({ 
+            studentName: document.getElementById("studentName").value, 
+            result: topG.join("&"), R: scores.R, I: scores.I, A: scores.A, S: scores.S, E: scores.E, C: scores.C 
+        }) 
     });
-
-    html += `<canvas id="radarChart" style="margin-top:20px;"></canvas></div>`;
-    document.getElementById("result").innerHTML = html;
-    document.getElementById("result").style.display = "block";
-
-    const ctx = document.getElementById('radarChart').getContext('2d');
-    new Chart(ctx, { type:'radar', data:{ labels:['R','I','A','S','E','C'], datasets:[{ label:'Mức độ', data:[scores.R, scores.I, scores.A, scores.S, scores.E, scores.C], backgroundColor:'rgba(255,193,7,0.4)', borderColor:'#FFC107', borderWidth:3 }] }, options:{ scales:{ r:{ suggestedMin:0, suggestedMax:7, pointLabels:{color:'#fff'} } }, plugins:{ legend:{labels:{color:'#fff'}} } } });
-    
-    fetch("https://script.google.com/macros/s/AKfycbyTl_RYkjsTeI0QpzFToyvgaX8Di2mR4u0dRwwVtCVUS1VJ1sQZyT5uzWHj-lgKL0BP/exec", { method: "POST", mode: "no-cors", body: new URLSearchParams({ studentName: document.getElementById("studentName").value, result: topG.join("&"), R: scores.R, I: scores.I, A: scores.A, S: scores.S, E: scores.E, C: scores.C }) });
 }
-
-function showFinalResults() { document.getElementById('intro-slides').style.display='none'; document.getElementById('final-details').style.display='block'; window.scrollTo(0,0); }
 </script>
 </body>
 </html>
