@@ -15,10 +15,23 @@
             background-attachment: fixed;
         }
 
+        /* HEADER PHONG CÁCH WORD */
+        .custom-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background: rgba(0, 0, 0, 0.2);
+            color: white;
+            font-size: 12px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .custom-header img { height: 30px; }
+
         .container {
             max-width: 1000px;
             margin: auto;
-            padding: 40px 20px;
+            padding: 20px;
         }
 
         .card {
@@ -30,8 +43,7 @@
             margin-bottom: 20px;
         }
 
-        h1 { text-align: center; color: #1e3c72; line-height: 1.4; }
-        .sub-title { font-size: 18px; color: #1565c0; }
+        h1 { text-align: center; color: #1e3c72; line-height: 1.4; margin-top: 10px; }
 
         .guide {
             background: #e3f2fd;
@@ -49,10 +61,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            transition: 0.3s;
         }
-
-        .question:hover { transform: scale(1.01); background: #e3f2fd; }
 
         input[type="checkbox"] { transform: scale(1.4); cursor: pointer; }
 
@@ -78,19 +87,12 @@
         .result {
             display: none;
             margin-top: 30px;
-            padding: 25px;
+            padding: 0; /* Để ảnh intro tràn viền */
             border-radius: 15px;
             text-align: center;
             color: white;
             animation: fadeIn 1s ease;
-        }
-
-        .result img {
-            width: 100%;
-            max-width: 450px;
-            border-radius: 15px;
-            margin: 20px 0;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            overflow: hidden;
         }
 
         .info-box input {
@@ -102,8 +104,14 @@
             box-sizing: border-box;
         }
 
-        .qr-section { text-align: center; margin: 20px 0; }
-        .qr-img { width: 120px; }
+        /* Ảnh toàn màn hình cho Step 2 */
+        .full-width-img {
+            width: 100vw;
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin-left: calc(-50vw + 50%);
+        }
 
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
@@ -113,40 +121,41 @@
 </head>
 
 <body>
+
+<div class="custom-header">
+    <div style="display:flex; align-items:center;">
+        <img src="assets/LOGO HPG XÓA PHÔNG.png" alt="Logo">
+    </div>
+    <div>Hệ thống Giáo dục HPG</div>
+    <div>Hotline: 0913.695.186</div>
+</div>
+
 <div class="container">
     <div class="card" id="step1">
-        <div style="text-align:center;margin-bottom:20px;">
-            <img src="assets/LOGO HPG XÓA PHÔNG.png" style="width:120px;">
-        </div>
-        <h1>
-            Trắc nghiệm định hướng nghề nghiệp RIASEC<br>
-            <span class="sub-title">Hệ thống giáo dục HPG</span>
-        </h1>
-        <div class="qr-section">
-            <img src="assets/background.png" class="qr-img">
-            <p style="font-style:italic; color:#1e3c72;">Quét mã QR để nhận kết quả</p>
-        </div>
+        <h1>Trắc nghiệm định hướng nghề nghiệp RIASEC</h1>
+        
         <div class="guide">
             <h3>Hướng dẫn</h3>
             <p>Hãy đọc từng câu dưới đây. Nếu bạn đồng ý, hãy đánh dấu chọn. Trả lời trung thực theo sở thích của bạn.</p>
             <div class="info-box">
-                <input type="text" id="studentName" placeholder="Họ tên học sinh" required>
-                <input type="text" id="class" placeholder="Lớp" required>
-                <input type="text" id="school" placeholder="Trường" required>
-                <input type="text" id="teacher" placeholder="Họ tên giáo viên chủ nhiệm" required>
-                <input type="text" id="parent" placeholder="Họ tên phụ huynh" required>
+                <input type="text" id="studentName" placeholder="Họ tên học sinh (Bắt buộc)">
+                <input type="text" id="class" placeholder="Lớp (Bắt buộc)">
+                <input type="text" id="school" placeholder="Trường (Bắt buộc)">
+                <input type="text" id="teacher" placeholder="Họ tên giáo viên chủ nhiệm (Bắt buộc)">
+                <input type="text" id="parent" placeholder="Họ tên phụ huynh (Bắt buộc)">
                 <input type="email" id="parentEmail" placeholder="Email phụ huynh">
-                <input type="tel" id="phone" placeholder="Số điện thoại của phụ huynh" required>
+                <input type="tel" id="phone" placeholder="Số điện thoại của phụ huynh (Bắt buộc)">
             </div>
             <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
         </div>
         <button onclick="goToStep2()">TIẾP TỤC</button>
     </div>
 
-    <div class="card" id="step2" style="display:none; text-align:center;">
-        <img src="assets/infor 1.png" style="width:100%; max-width:600px; margin-bottom:20px; border-radius:10px;">
-        <p style="font-size:18px;">Nếu bạn muốn tìm ra cách để giải quyết những thực trạng ở trên, hãy nhấn nút phía dưới để tìm giải pháp.</p>
-        <button onclick="goToStep3()">GIẢI PHÁP</button>
+    <div class="card" id="step2" style="display:none; text-align:center; padding: 30px 0;">
+        <img src="assets/infor 1.png" class="full-width-img">
+        <div style="padding: 0 20px;">
+            <button onclick="goToStep3()">GIẢI PHÁP HƯỚNG NGHIỆP CHO HỌC SINH THCS</button>
+        </div>
     </div>
 
     <div class="card" id="step3" style="display:none;">
@@ -211,34 +220,32 @@ function calculate(){
     resultContainer.style.display="block";
     resultContainer.style.background="#1e3c72";
 
-    // 1. Chèn 5 ảnh intro (Sửa lỗi dấu nháy ở đây)
-  let htmlContent = `
+    let htmlContent = `
         <div id="intro-slides">
             <div class="intro-page" id="page-1" style="display: block; text-align: center;">
                 <img src="assets/intro 1.png" style="width: 100vw; max-width: 100%; height: auto; display: block; border-radius: 0;">
-                <button onclick="nextPage(2)" style="width: 80%; margin: 20px auto;">TIẾP THEO</button>
+                <div style="padding: 20px;"><button onclick="nextPage(2)">TIẾP THEO</button></div>
             </div>
 
             <div class="intro-page" id="page-2" style="display: none; text-align: center;">
                 <img src="assets/intro 2.png" style="width: 100vw; max-width: 100%; height: auto; display: block; border-radius: 0;">
-                <button onclick="nextPage(3)" style="width: 80%; margin: 20px auto;">TIẾP THEO</button>
+                <div style="padding: 20px;"><button onclick="nextPage(3)">TIẾP THEO</button></div>
             </div>
 
             <div class="intro-page" id="page-3" style="display: none; text-align: center;">
                 <img src="assets/intro 3.png" style="width: 100vw; max-width: 100%; height: auto; display: block; border-radius: 0;">
-                <button onclick="showFinalResults()" style="width: 80%; margin: 20px auto; background: #FFC107; color: #1e3c72;">XEM KẾT QUẢ NGHỀ NGHIỆP</button>
+                <div style="padding: 20px;"><button onclick="showFinalResults()" style="background: #FFC107; color: #1e3c72;">XEM KẾT QUẢ NGHỀ NGHIỆP</button></div>
             </div>
         </div>
 
-        <div id="final-details" style="display: none;">
+        <div id="final-details" style="display: none; padding: 20px;">
     `;
 
-    // 2. Chèn kết quả nhóm nghề
     topGroups.forEach(group=>{
         htmlContent += `
             <div style="margin-bottom:40px;">
                 <h2 style="color:#FFC107;">Bạn thuộc nhóm ${group}</h2>
-                <img src="${images[group]}" alt="${group}">
+                <img src="${images[group]}" alt="${group}" style="max-width: 90%; border-radius: 15px;">
                 <p style="font-size:18px; padding:0 20px;">${descriptions[group]}</p>
                 <hr style="margin:25px 0;border:1px solid rgba(255,255,255,0.3);">
             </div>
@@ -250,14 +257,13 @@ function calculate(){
         R:${scores.R} | I:${scores.I} | A:${scores.A} | S:${scores.S} | E:${scores.E} | C:${scores.C}</p>
         <div style="margin:25px; padding:20px; background:rgba(255,255,255,0.1); border-radius:12px;">
             <strong>Cảm ơn bạn đã tham gia khảo sát.</strong><br><br>
-            Kết quả chi tiết đã được ghi nhận vào hệ thống của HPG và sẽ được gửi về Số điện thoại/zalo đã nhập ở trên.
+            Kết quả chi tiết đã được ghi nhận và gửi về Số điện thoại đã nhập.
         </div>
         <canvas id="radarChart" style="margin-top:30px; background: rgba(255,255,255,0.05); border-radius:15px; padding:10px;"></canvas>
-    `;
+    </div>`;
 
     resultContainer.innerHTML = htmlContent;
 
-    // 3. Vẽ biểu đồ
     const ctx = document.getElementById('radarChart').getContext('2d');
     new Chart(ctx, {
         type: 'radar',
@@ -286,7 +292,6 @@ function calculate(){
         }
     });
 
-    // 4. Gửi dữ liệu
     fetch("https://script.google.com/macros/s/AKfycbyTl_RYkjsTeI0QpzFToyvgaX8Di2mR4u0dRwwVtCVUS1VJ1sQZyT5uzWHj-lgKL0BP/exec", {
         method: "POST",
         mode: "no-cors",
@@ -305,11 +310,23 @@ function calculate(){
 }
 
 function goToStep2(){
-    // Kiểm tra nhanh xem đã điền tên chưa
-    if(!document.getElementById("studentName").value) { 
-        alert("Vui lòng điền họ tên để tiếp tục"); 
-        return; 
+    const requiredFields = [
+        {id: "studentName", label: "Họ tên học sinh"},
+        {id: "class", label: "Lớp"},
+        {id: "school", label: "Trường"},
+        {id: "teacher", label: "Họ tên giáo viên chủ nhiệm"},
+        {id: "parent", label: "Họ tên phụ huynh"},
+        {id: "phone", label: "Số điện thoại của phụ huynh"}
+    ];
+
+    for (let field of requiredFields) {
+        if (!document.getElementById(field.id).value.trim()) {
+            alert("Vui lòng điền thông tin: " + field.label);
+            document.getElementById(field.id).focus();
+            return;
+        }
     }
+
     document.getElementById("step1").style.display="none";
     document.getElementById("step2").style.display="block";
     window.scrollTo(0,0);
@@ -323,25 +340,19 @@ function goToStep3(){
 
 function showIntroBeforeResult(){
     document.getElementById("step3").style.display="none";
-    calculate(); // Hàm này sẽ chạy và tạo ra các slide ảnh intro
+    calculate();
     window.scrollTo(0,0);
 }
 
-// Hàm chuyển giữa các trang ảnh intro (Phần bạn mới yêu cầu)
 function nextPage(pageNum) {
-    // Ẩn tất cả các trang intro
     document.querySelectorAll('.intro-page').forEach(page => {
         page.style.display = 'none';
     });
-    // Hiện trang tiếp theo
     const nextPg = document.getElementById('page-' + pageNum);
-    if(nextPg) {
-        nextPg.style.display = 'block';
-    }
+    if(nextPg) { nextPg.style.display = 'block'; }
     window.scrollTo(0, 0);
 }
 
-// Hàm hiển thị kết quả cuối cùng sau khi xem hết 3 ảnh
 function showFinalResults() {
     document.getElementById('intro-slides').style.display = 'none';
     document.getElementById('final-details').style.display = 'block';
