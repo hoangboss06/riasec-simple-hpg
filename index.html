@@ -145,8 +145,8 @@
     <h1 style="margin-top: 0;">Trắc nghiệm định hướng nghề nghiệp RIASEC</h1>
     
     <div class="guide">
-        <h3>Hướng dẫn</h3>
-        <p>Hãy đọc từng câu dưới đây. Nếu bạn đồng ý, hãy đánh dấu chọn. Trả lời trung thực theo sở thích của bạn.</p>
+        <h3>Thông tin cá nhân</h3>
+        <p>Lưu ý: Cần điền chính xác các thông tin, đặc biệt là Email và số điện thoại để nhận được kết quả chính xác nhất.</p>
         <div class="info-box">
             <input type="text" id="studentName" placeholder="Họ tên học sinh (Bắt buộc)">
             <input type="text" id="class" placeholder="Lớp (Bắt buộc)">
@@ -180,196 +180,68 @@
 </div>
 
 <script>
+/ --- DỮ LIỆU CÂU HỎI & MAPPING ---
 const questions = [ "Tôi thích sửa chữa máy móc, thiết bị.", "Tôi thích nghiên cứu khoa học, thí nghiệm.", "Tôi thích thuyết phục và lãnh đạo người khác.", "Tôi thích giúp đỡ người khác giải quyết vấn đề.", "Tôi thích kinh doanh hoặc bán hàng.", "Tôi thích làm việc với sổ sách, giấy tờ.", "Tôi thích làm việc ngoài trời.", "Tôi thích vẽ, thiết kế hoặc sáng tạo nghệ thuật.", "Tôi thích làm việc với con số và dữ liệu.", "Tôi thích quản lý và điều hành công việc.", "Tôi thích tìm hiểu cách mọi thứ vận hành.", "Tôi thích chăm sóc và hỗ trợ người khác.", "Tôi thích tư vấn, hướng dẫn người khác.", "Tôi thích vận hành máy móc.", "Tôi thích sắp xếp và lưu trữ hồ sơ.", "Tôi thích tham gia các hoạt động kinh doanh.", "Tôi thích biểu diễn nghệ thuật.", "Tôi thích phân tích vấn đề logic.", "Tôi thích khởi nghiệp.", "Tôi thích làm việc nhóm và hỗ trợ đồng đội.", "Tôi thích làm thí nghiệm.", "Tôi thích sửa chữa điện, cơ khí.", "Tôi thích sáng tác âm nhạc hoặc viết lách.", "Tôi thích làm kế toán hoặc hành chính.", "Tôi thích làm việc theo quy trình rõ ràng.", "Tôi thích nghiên cứu công nghệ mới.", "Tôi thích thiết kế thời trang hoặc mỹ thuật.", "Tôi thích tham gia công tác xã hội.", "Tôi thích lãnh đạo dự án.", "Tôi thích làm nông nghiệp hoặc kỹ thuật.", "Tôi thích sáng tạo nội dung.", "Tôi thích lắp ráp thiết bị.", "Tôi thích làm việc văn phòng.", "Tôi thích quản lý nhân sự.", "Tôi thích làm công việc kiểm tra, giám sát.", "Tôi thích kinh doanh tự do.", "Tôi thích vận hành công cụ kỹ thuật.", "Tôi thích làm việc với hệ thống dữ liệu.", "Tôi thích nghiên cứu chuyên sâu.", "Tôi thích làm giáo viên hoặc huấn luyện viên.", "Tôi thích thiết kế đồ họa.", "Tôi thích điều hành doanh nghiệp." ];
-
 const mapping = { 1:"R",2:"I",3:"E",4:"S",5:"E",6:"C",7:"R",8:"A",9:"C",10:"E",11:"I",12:"S",13:"S",14:"R",15:"C",16:"E",17:"A",18:"I",19:"E",20:"S",21:"I",22:"R",23:"A",24:"C",25:"C",26:"I",27:"A",28:"S",29:"E",30:"R",31:"A",32:"R",33:"C",34:"E",35:"C",36:"E",37:"R",38:"C",39:"I",40:"S",41:"A",42:"E" };
+const images = { R:"https://images.unsplash.com/photo-1581092160607-ee22621dd758", I:"https://images.unsplash.com/photo-1544551763-46a013bb70d5", A:"https://images.unsplash.com/photo-1500530855697-b586d89ba3ee", S:"https://images.unsplash.com/photo-1551836022-d5d88e9218df", E:"https://images.unsplash.com/photo-1556761175-4b46a572b786", C:"https://images.unsplash.com/photo-1554224155-6726b3ff858f" };
+const descriptions = { R:"Nhóm Thực tế (R). Thường giỏi các công việc cơ khí hoặc vận động.", I:"Nhóm Nghiên cứu (I). Thích quan sát, phân tích và giải quyết vấn đề.", A:"Nhóm Nghệ thuật (A). Thích sự sáng tạo, làm việc phi cấu trúc.", S:"Nhóm Xã hội (S). Thích làm việc với con người.", E:"Nhóm Quản lý (E). Thích thuyết phục hoặc quản lý người khác.", C:"Nhóm Nghiệp vụ (C). Chú trọng chi tiết, có tổ chức." };
 
-const images={
-    R:"https://images.unsplash.com/photo-1581092160607-ee22621dd758",
-    I:"https://images.unsplash.com/photo-1544551763-46a013bb70d5",
-    A:"https://images.unsplash.com/photo-1500530855697-b586d89ba3ee",
-    S:"https://images.unsplash.com/photo-1551836022-d5d88e9218df",
-    E:"https://images.unsplash.com/photo-1556761175-4b46a572b786",
-    C:"https://images.unsplash.com/photo-1554224155-6726b3ff858f"
+// --- DỮ LIỆU MỞ RỘNG (TRƯỜNG & MÔN HỌC) ---
+const subjectDetails = { A00: "A00 (Toán - Lý - Hóa)", A01: "A01 (Toán - Lý - Tiếng Anh)", B00: "B00 (Toán - Hóa - Sinh)", C00: "C00 (Văn - Sử - Địa)", D01: "D01 (Toán - Văn - Tiếng Anh)", D07: "D07 (Toán - Hóa - Tiếng Anh)", D14: "D14 (Văn - Sử - Tiếng Anh)", D15: "D15 (Văn - Địa - Tiếng Anh)" };
+const extendedData = {
+    R:{ subjects:["A00","A01"], universities:[{name:"ĐH Bách Khoa HN", location:"Hà Nội", majors:"Cơ khí, Điện", tuition:"8-15tr", living:"96-132tr"}, {name:"ĐH Hàng Hải VN", location:"Hải Phòng", majors:"Ô tô, Tàu thủy", tuition:"7-12tr", living:"84-115tr"}] },
+    I:{ subjects:["B00","A00","D01"], universities:[{name:"ĐH Y Hà Nội", location:"Hà Nội", majors:"Y đa khoa", tuition:"15-30tr", living:"96-132tr"}, {name:"ĐH Y Dược HP", location:"Hải Phòng", majors:"Y đa khoa", tuition:"15-25tr", living:"84-115tr"}] },
+    A:{ subjects:["C00","D01","D14"], universities:[{name:"ĐH Mỹ thuật CN", location:"Hà Nội", majors:"Thiết kế đồ họa", tuition:"8-12tr", living:"96-132tr"}, {name:"ĐH Hải Phòng", location:"Hải Phòng", majors:"Truyền thông", tuition:"6-10tr", living:"84-115tr"}] },
+    S:{ subjects:["C00","D01","D15"], universities:[{name:"ĐH Sư phạm HN", location:"Hà Nội", majors:"Sư phạm", tuition:"6-11tr", living:"90-120tr"}, {name:"ĐH Hải Phòng", location:"Hải Phòng", majors:"Công tác xã hội", tuition:"6-10tr", living:"84-115tr"}] },
+    E:{ subjects:["A00","D01","D07"], universities:[{name:"ĐH Kinh tế Quốc dân", location:"Hà Nội", majors:"QTKD", tuition:"10-18tr", living:"96-132tr"}, {name:"ĐH Hải Phòng", location:"Hải Phòng", majors:"Du lịch", tuition:"6-10tr", living:"84-115tr"}] },
+    C:{ subjects:["A00","B00","D01"], universities:[{name:"Học viện Tài chính", location:"Hà Nội", majors:"Kế toán", tuition:"9-16tr", living:"96-132tr"}, {name:"ĐH Hải Phòng", location:"Hải Phòng", majors:"Phân tích dữ liệu", tuition:"6-10tr", living:"84-115tr"}] }
 };
 
-const descriptions = {
-    R:"Nhóm Thực tế (R). Thường giỏi các công việc cơ khí hoặc vận động. Ngành học gợi ý: Nông nghiệp, Máy tính, Xây dựng, Cơ khí, Kỹ thuật.",
-    I:"Nhóm Nghiên cứu (I). Thích quan sát, phân tích và giải quyết vấn đề. Ngành học gợi ý: Sinh học, Hóa học, Y học, Tâm lý học.",
-    A:"Nhóm Nghệ thuật (A). Thích sự sáng tạo, làm việc phi cấu trúc. Ngành học gợi ý: Truyền thông, Mỹ thuật, Thiết kế, Kiến trúc.",
-    S:"Nhóm Xã hội (S). Thích làm việc với con người. Ngành học gợi ý: Tư vấn, Điều dưỡng, Giáo dục.",
-    E:"Nhóm Quản lý (E). Thích thuyết phục hoặc quản lý người khác. Ngành học gợi ý: Marketing, Bán hàng, Luật, Tài chính.",
-    C:"Nhóm Nghiệp vụ (C). Chú trọng chi tiết, có tổ chức. Ngành học gợi ý: Kế toán, Bảo hiểm, Quản trị, Dữ liệu."
-};
+// --- LOGIC CHƯƠNG TRÌNH ---
+const qContainer = document.getElementById("questions");
+questions.forEach((q,i) => { qContainer.innerHTML += `<div class="question"><span>${i+1}. ${q}</span><input type="checkbox" id="q${i+1}" onchange="updateProgress()"></div>`; });
 
-const container=document.getElementById("questions");
-questions.forEach((q,index)=>{
-    container.innerHTML+=`
-    <div class="question">
-        <span>${index+1}. ${q}</span>
-        <input type="checkbox" id="q${index+1}" onchange="updateProgress()">
-    </div>`;
-});
+function updateProgress() { let checked = document.querySelectorAll("input:checked").length; document.getElementById("progressBar").style.width = (checked/42)*100+"%"; }
 
-function updateProgress(){
-    let checked=document.querySelectorAll("input:checked").length;
-    document.getElementById("progressBar").style.width=(checked/42)*100+"%";
+function goToStep2() { 
+    const fields = ["studentName", "class", "school", "teacher", "parent", "phone"];
+    for (let f of fields) { if(!document.getElementById(f).value.trim()) { alert("Vui lòng điền đủ thông tin!"); return; } }
+    document.getElementById("step1").style.display="none"; document.getElementById("step2").style.display="block"; window.scrollTo(0,0);
 }
 
-function calculate(){
-    let scores={R:0,I:0,A:0,S:0,E:0,C:0};
-    for(let i=1;i<=42;i++){
-        if(document.getElementById("q"+i).checked){
-            scores[mapping[i]]++;
-        }
-    }
+function goToStep3() { document.getElementById("step2").style.display="none"; document.getElementById("step3").style.display="block"; window.scrollTo(0,0); }
 
-    let maxScore = Math.max(...Object.values(scores));
-    let topGroups = Object.keys(scores).filter(key => scores[key]===maxScore);
+function showIntroBeforeResult() { document.getElementById("step3").style.display="none"; calculate(); window.scrollTo(0,0); }
 
-    let resultContainer=document.getElementById("result");
-    resultContainer.style.display="block";
-    resultContainer.style.background="#1e3c72";
+function calculate() {
+    let scores = {R:0, I:0, A:0, S:0, E:0, C:0};
+    for(let i=1; i<=42; i++) { if(document.getElementById("q"+i).checked) scores[mapping[i]]++; }
+    let maxS = Math.max(...Object.values(scores));
+    let topG = Object.keys(scores).filter(k => scores[k] === maxS);
+    
+    let html = `<div id="intro-slides" style="line-height:0;">`;
+    [6,7,8,9,10,11].forEach(n => { html += `<img src="assets/intro ${n}.png" style="width:100%; display:block;">`; });
+    html += `<div style="padding:30px;"><button onclick="showFinalResults()" style="background:#FFC107; color:#1e3c72; border-radius:50px;">XEM KẾT QUẢ NGHỀ NGHIỆP CỦA BẠN</button></div></div><div id="final-details" style="display:none; padding:20px; text-align:left;">`;
 
-    // PHẦN THAY ĐỔI: HIỂN THỊ ẢNH NỐI TIẾP NHAU
-    let htmlContent = `
-        <div id="intro-slides" style="padding: 0; margin: 0; line-height: 0;">
-            <img src="assets/intro 6.png" style="width: 100%; display: block; border: none;">
-            <img src="assets/intro 7.png" style="width: 100%; display: block; border: none;">
-            <img src="assets/intro 8.png" style="width: 100%; display: block; border: none;">
-            <img src="assets/intro 9.png" style="width: 100%; display: block; border: none;">
-            <img src="assets/intro 10.png" style="width: 100%; display: block; border: none;">
-            <img src="assets/intro 11.png" style="width: 100%; display: block; border: none;">
-            
-            <div style="padding: 40px 20px; text-align: center; background: #1e3c72;">
-                <button onclick="showFinalResults()" style="background: #FFC107; color: #1e3c72; border-radius: 50px; padding: 20px; font-size: 20px; width: auto; min-width: 280px; box-shadow: 0 4px 15px rgba(0,0,0,0.3);">
-                    XEM KẾT QUẢ NGHỀ NGHIỆP CỦA BẠN
-                </button>
-            </div>
-        </div>
-
-        <div id="final-details" style="display: none; padding: 20px;">
-    `;
-
-    // (Giữ nguyên phần render topGroups và radar chart bên dưới...)
-
-    topGroups.forEach(group=>{
-        htmlContent += `
-            <div style="margin-bottom:40px;">
-                <h2 style="color:#FFC107;">Bạn thuộc nhóm ${group}</h2>
-                <img src="${images[group]}" alt="${group}" style="max-width: 90%; border-radius: 15px;">
-                <p style="font-size:18px; padding:0 20px;">${descriptions[group]}</p>
-                <hr style="margin:25px 0;border:1px solid rgba(255,255,255,0.3);">
-            </div>
-        `;
+    topG.forEach(g => {
+        let ex = extendedData[g];
+        html += `<h2 style="color:#FFC107; text-align:center;">Bạn thuộc nhóm ${g}</h2><img src="${images[g]}" style="width:100%; border-radius:15px;"><p>${descriptions[g]}</p><h3 style="color:#FFC107;">📚 Tổ hợp môn:</h3><ul style="color:white;">${ex.subjects.map(s=>`<li>${subjectDetails[s]}</li>`).join("")}</ul><h3 style="color:#FFC107;">🏫 Gợi ý trường:</h3>`;
+        ex.universities.forEach(u => { html += `<div style="background:rgba(255,255,255,0.1); padding:10px; border-radius:10px; margin-bottom:10px;"><strong>${u.name}</strong><br>Ngành: ${u.majors}<br>Học phí: ${u.tuition}</div>`; });
+        html += `<hr style="border:0.5px solid rgba(255,255,255,0.2);">`;
     });
 
-    htmlContent += `
-        <p><strong>Điểm số chi tiết:</strong><br>
-        R:${scores.R} | I:${scores.I} | A:${scores.A} | S:${scores.S} | E:${scores.E} | C:${scores.C}</p>
-        <div style="margin:25px; padding:20px; background:rgba(255,255,255,0.1); border-radius:12px;">
-            <strong>Cảm ơn bạn đã tham gia khảo sát.</strong><br><br>
-            Kết quả chi tiết đã được ghi nhận và gửi về Số điện thoại đã nhập.
-        </div>
-        <canvas id="radarChart" style="margin-top:30px; background: rgba(255,255,255,0.05); border-radius:15px; padding:10px;"></canvas>
-    </div>`;
-
-    resultContainer.innerHTML = htmlContent;
+    html += `<canvas id="radarChart" style="margin-top:20px;"></canvas></div>`;
+    document.getElementById("result").innerHTML = html;
+    document.getElementById("result").style.display = "block";
 
     const ctx = document.getElementById('radarChart').getContext('2d');
-    new Chart(ctx, {
-        type: 'radar',
-        data: {
-            labels: ['R', 'I', 'A', 'S', 'E', 'C'],
-            datasets: [{
-                label: 'Mức độ phù hợp',
-                data: [scores.R, scores.I, scores.A, scores.S, scores.E, scores.C],
-                backgroundColor: 'rgba(255, 193, 7, 0.4)',
-                borderColor: '#FFC107',
-                borderWidth: 3,
-                pointBackgroundColor: '#fff'
-            }]
-        },
-        options: {
-            scales: {
-                r: {
-                    angleLines: { color: 'rgba(255,255,255,0.2)' },
-                    grid: { color: 'rgba(255,255,255,0.2)' },
-                    pointLabels: { color: '#fff', font: { size: 16 } },
-                    suggestedMin: 0,
-                    suggestedMax: 7
-                }
-            },
-            plugins: { legend: { labels: { color: '#fff' } } }
-        }
-    });
-
-    fetch("https://script.google.com/macros/s/AKfycbyTl_RYkjsTeI0QpzFToyvgaX8Di2mR4u0dRwwVtCVUS1VJ1sQZyT5uzWHj-lgKL0BP/exec", {
-        method: "POST",
-        mode: "no-cors",
-        body: new URLSearchParams({
-            studentName: document.getElementById("studentName").value,
-            class: document.getElementById("class").value,
-            school: document.getElementById("school").value,
-            teacher: document.getElementById("teacher").value,
-            parent: document.getElementById("parent").value,
-            parentEmail: document.getElementById("parentEmail").value,
-            phone: document.getElementById("phone").value,
-            R: scores.R, I: scores.I, A: scores.A, S: scores.S, E: scores.E, C: scores.C,
-            result: topGroups.join(" & ")
-        })
-    });
+    new Chart(ctx, { type:'radar', data:{ labels:['R','I','A','S','E','C'], datasets:[{ label:'Mức độ', data:[scores.R, scores.I, scores.A, scores.S, scores.E, scores.C], backgroundColor:'rgba(255,193,7,0.4)', borderColor:'#FFC107', borderWidth:3 }] }, options:{ scales:{ r:{ suggestedMin:0, suggestedMax:7, pointLabels:{color:'#fff'} } }, plugins:{ legend:{labels:{color:'#fff'}} } } });
+    
+    // Gửi Google Sheet (Thầy/Cô thay link Apps Script vào đây)
+    fetch("LINK_APPS_SCRIPT_CUA_THAY_CO", { method: "POST", mode: "no-cors", body: new URLSearchParams({ studentName: document.getElementById("studentName").value, result: topG.join("&"), R: scores.R, I: scores.I, A: scores.A, S: scores.S, E: scores.E, C: scores.C }) });
 }
 
-function goToStep2(){
-    const requiredFields = [
-        {id: "studentName", label: "Họ tên học sinh"},
-        {id: "class", label: "Lớp"},
-        {id: "school", label: "Trường"},
-        {id: "teacher", label: "Họ tên giáo viên chủ nhiệm"},
-        {id: "parent", label: "Họ tên phụ huynh"},
-        {id: "phone", label: "Số điện thoại của phụ huynh"}
-    ];
-
-    for (let field of requiredFields) {
-        if (!document.getElementById(field.id).value.trim()) {
-            alert("Vui lòng điền thông tin: " + field.label);
-            document.getElementById(field.id).focus();
-            return;
-        }
-    }
-
-    document.getElementById("step1").style.display="none";
-    document.getElementById("step2").style.display="block";
-    window.scrollTo(0,0);
-}
-
-function goToStep3(){
-    document.getElementById("step2").style.display="none";
-    document.getElementById("step3").style.display="block";
-    window.scrollTo(0,0);
-}
-
-function showIntroBeforeResult(){
-    document.getElementById("step3").style.display="none";
-    calculate();
-    window.scrollTo(0,0);
-}
-
-function nextPage(pageNum) {
-    document.querySelectorAll('.intro-page').forEach(page => {
-        page.style.display = 'none';
-    });
-    const nextPg = document.getElementById('page-' + pageNum);
-    if(nextPg) { nextPg.style.display = 'block'; }
-    window.scrollTo(0, 0);
-}
-
-function showFinalResults() {
-    document.getElementById('intro-slides').style.display = 'none';
-    document.getElementById('final-details').style.display = 'block';
-    window.scrollTo(0, 0);
-}
+function showFinalResults() { document.getElementById('intro-slides').style.display='none'; document.getElementById('final-details').style.display='block'; window.scrollTo(0,0); }
 </script>
 </body>
 </html>
