@@ -257,7 +257,7 @@ function calculate() {
     topG.forEach(g => {
         let ex = extendedData[g];
         html += `<h2 style="color:#FFC107; text-align:center;">Bạn thuộc nhóm ${g}</h2>
-        <img src="${images[g]}" style="width:100%; max-width:600px; display:block; margin: 15px auto; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.3);">
+                 <img src="${images[g]}" style="width:100%; max-width:600px; display:block; margin: 15px auto; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.3);">
                  <p style="text-align:center; font-size: 1.1em;">${descriptions[g]}</p>
                  <h3 style="color:#FFC107; text-align:center; margin-top:20px;">📚 Tổ hợp môn nên chú ý:</h3>
                  <ul style="text-align: center; list-style: none; padding: 0; font-weight: bold;">
@@ -300,27 +300,30 @@ function calculate() {
         } 
     });
     
-    // Gửi dữ liệu về Google Sheets
-   fetch("https://script.google.com/macros/s/AKfycbyTl_RYkjsTeI0QpzFToyvgaX8Di2mR4u0dRwwVtCVUS1VJ1sQZyT5uzWHj-lgKL0BP/exec", { 
+    // --- PHẦN GỬI DỮ LIỆU ĐÃ CHỈNH SỬA KHỚP VỚI APPS SCRIPT ---
+    fetch("https://script.google.com/macros/s/AKfycbyTl_RYkjsTeI0QpzFToyvgaX8Di2mR4u0dRwwVtCVUS1VJ1sQZyT5uzWHj-lgKL0BP/exec", { 
         method: "POST", 
         mode: "no-cors", 
         body: new URLSearchParams({ 
             studentName: document.getElementById("studentName").value, 
-            className: document.getElementById("class").value,
+            class: document.getElementById("class").value,
             school: document.getElementById("school").value,
             teacher: document.getElementById("teacher").value,
-            parentName: document.getElementById("parent").value,
+            parent: document.getElementById("parent").value,
             parentEmail: document.getElementById("parentEmail").value,
-            phoneNumber: document.getElementById("phone").value,
-            result: topG.join("&"), 
+            phone: document.getElementById("phone").value,
             R: scores.R, 
             I: scores.I, 
             A: scores.A, 
             S: scores.S, 
             E: scores.E, 
-            C: scores.C 
+            C: scores.C,
+            result: topG.join("&")
         }) 
     });
+}
+    
+  
 </script>
 </body>
 </html>
