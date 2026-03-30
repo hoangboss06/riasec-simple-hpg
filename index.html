@@ -301,15 +301,26 @@ function calculate() {
     });
     
     // Gửi dữ liệu về Google Sheets
-    fetch("https://script.google.com/macros/s/AKfycbyTl_RYkjsTeI0QpzFToyvgaX8Di2mR4u0dRwwVtCVUS1VJ1sQZyT5uzWHj-lgKL0BP/exec", { 
+   fetch("https://script.google.com/macros/s/AKfycbyTl_RYkjsTeI0QpzFToyvgaX8Di2mR4u0dRwwVtCVUS1VJ1sQZyT5uzWHj-lgKL0BP/exec", { 
         method: "POST", 
         mode: "no-cors", 
         body: new URLSearchParams({ 
             studentName: document.getElementById("studentName").value, 
-            result: topG.join("&"), R: scores.R, I: scores.I, A: scores.A, S: scores.S, E: scores.E, C: scores.C 
+            className: document.getElementById("class").value,
+            school: document.getElementById("school").value,
+            teacher: document.getElementById("teacher").value,
+            parentName: document.getElementById("parent").value,
+            parentEmail: document.getElementById("parentEmail").value,
+            phoneNumber: document.getElementById("phone").value,
+            result: topG.join("&"), 
+            R: scores.R, 
+            I: scores.I, 
+            A: scores.A, 
+            S: scores.S, 
+            E: scores.E, 
+            C: scores.C 
         }) 
     });
-}
 </script>
 </body>
 </html>
