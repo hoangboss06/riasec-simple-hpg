@@ -215,10 +215,23 @@ function updateProgress() {
 
 // --- 3. ĐIỀU HƯỚNG ---
 function goToStep2() { 
-    const fields = ["studentName", "class", "school", "teacher", "parent", "phone"];
+    const fields = [
+        { id: "studentName", label: "Họ tên học sinh", min: 7 },
+        { id: "class", label: "Lớp", min: 2 },
+        { id: "school", label: "Trường", min: 5 },
+        { id: "teacher", label: "Họ tên giáo viên chủ nhiệm", min: 7 },
+        { id: "parent", label: "Họ tên phụ huynh", min: 7 },
+        { id: "phone", label: "Số điện thoại", min: 10 }
+    ];
+
     for (let f of fields) { 
-        let val = document.getElementById(f).value.trim();
-        if(!val) { alert("Vui lòng điền đủ thông tin: " + document.getElementById(f).placeholder); return; } 
+        let element = document.getElementById(f.id);
+        let val = element.value.trim();
+        if(!val || val.length < f.min) { 
+            alert(`Vui lòng nhập ${f.label} đầy đủ (tối thiểu ${f.min} ký tự).`); 
+            element.focus();
+            return; 
+        } 
     }
     document.getElementById("step1").style.display="none"; 
     document.getElementById("step2").style.display="block"; 
